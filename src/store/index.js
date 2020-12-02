@@ -123,6 +123,14 @@ export default new Vuex.Store({
         return Promise.reject(error);
       }
     },
+    updateToCart: async ({ commit }, payload) => {
+      try {
+        let result = await srvApi.updateCart(payload.id, payload);
+        return Promise.resolve(result.data);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
     addToOrder: async ({ commit }, payload) => {
       try {
         let result = await srvApi.addOrder(payload);

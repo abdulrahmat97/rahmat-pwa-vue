@@ -109,8 +109,8 @@
         "is_ready": true,
         "gambar": "nasi-rames.jpg"
       },
-      "jumlah_pemesanan": "1",
-      "keterangan": "",
+      "jumlah_pemesanan": "4",
+      "keterangan": "telur mata sapi,dan dadar, sambal banyak",
       "id": 4
     },
     {
@@ -135,7 +135,7 @@
         "is_ready": true,
         "gambar": "mie-ayam-bakso.jpg"
       },
-      "jumlah_pemesanan": "1",
+      "jumlah_pemesanan": "2",
       "keterangan": "Bakso gede",
       "id": 6
     }
@@ -218,6 +218,52 @@
         }
       ],
       "id": 2
+    },
+    {
+      "nama": "Abdul",
+      "noMeja": "24",
+      "keranjangs": [
+        {
+          "products": {
+            "id": 3,
+            "kode": "K-03",
+            "nama": "Nasi Rames",
+            "harga": 12000,
+            "is_ready": true,
+            "gambar": "nasi-rames.jpg"
+          },
+          "jumlah_pemesanan": "4",
+          "keterangan": "telur mata sapi,dan dadar, sambal banyak",
+          "id": 4
+        },
+        {
+          "products": {
+            "id": 1,
+            "kode": "K-01",
+            "nama": "Sate Ayam",
+            "harga": 16000,
+            "is_ready": true,
+            "gambar": "sate-ayam.jpg"
+          },
+          "jumlah_pemesanan": "5",
+          "keterangan": "banyakin lontong",
+          "id": 5
+        },
+        {
+          "products": {
+            "id": 4,
+            "kode": "K-04",
+            "nama": "Mie Ayam Bakso",
+            "harga": 14000,
+            "is_ready": true,
+            "gambar": "mie-ayam-bakso.jpg"
+          },
+          "jumlah_pemesanan": "2",
+          "keterangan": "Bakso gede",
+          "id": 6
+        }
+      ],
+      "id": 3
     }
   ]
 }

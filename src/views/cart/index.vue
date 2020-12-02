@@ -34,6 +34,9 @@
           {{ (item.products.harga * parseInt(item.jumlah_pemesanan)) | rupiah }}
         </template>
         <template v-slot:item.action="{ item }">
+          <v-btn icon color="primary" @click="editItem(item)">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
           <v-btn icon color="red" @click="deleteItem(item)">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
@@ -63,6 +66,46 @@
         </v-btn>
       </v-flex>
     </div>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline"
+            >{{ foodEdit.products.nama }} -
+            {{ foodEdit.products.harga | rupiah }}</span
+          >
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="foodEdit.jumlah_pemesanan"
+                  label="Jumlah"
+                  type="number"
+                  outlined
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="8">
+                <v-text-field
+                  v-model="foodEdit.keterangan"
+                  label="Keterangan"
+                  outlined
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="updateCart">
+            Perbaharui
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -85,19 +128,19 @@ export default {
       noMeja: "",
       loading: false,
       loading2: false,
+      dialog: false,
+      foodEdit: {
+        jumlah_pemesanan: "",
+        keterangan: "",
+        products: {
+          nama: "",
+          harga: 0,
+        },
+      },
     };
   },
   created() {
-    this.loading = true;
-    this.$store
-      .dispatch("fetchCart")
-      .then((res) => {
-        this.loading = false;
-      })
-      .catch((ex) => {
-        console.log("ex", ex);
-        this.loading = false;
-      });
+    this.fetchCart();
   },
   computed: {
     ...mapGetters(["getCart"]),
@@ -114,6 +157,18 @@ export default {
     },
   },
   methods: {
+    fetchCart() {
+      this.loading = true;
+      this.$store
+        .dispatch("fetchCart")
+        .then((res) => {
+          this.loading = false;
+        })
+        .catch((ex) => {
+          console.log("ex", ex);
+          this.loading = false;
+        });
+    },
     deleteItem(item) {
       this.$swal({
         title: "Apakah anda yakin?",
@@ -130,6 +185,25 @@ export default {
         }
       });
     },
+    editItem(item) {
+      this.foodEdit = item;
+      this.dialog = true;
+    },
+    updateCart() {
+      // console.log('this.foodEdit', this.foodEdit)
+      this.$store
+        .dispatch("updateToCart", this.foodEdit)
+        .then((res) => {
+          this.$swal("Berhasi!", "Pesanan Anda Telah diperbaharui.", "success");
+        })
+        .catch((ex) => {
+          this.$swal("Gagal!", "Pesanan Anda Gagal diperbaharui.", "error");
+        })
+        .finally(() => {
+          this.dialog = false;
+          this.fetchCart();
+        });
+    },
     addToOrders() {
       this.loading2 = true;
       let order = {
@@ -141,10 +215,12 @@ export default {
         .dispatch("addToOrder", order)
         .then((res) => {
           this.loading2 = false;
+          this.$swal("Berhasi!", "Pesanan Anda Telah dibuat.", "success");
           this.$router.push("/ordersuccess");
         })
         .catch((ex) => {
           this.loading2 = false;
+          this.$swal("Berhasi!", "Pesanan Anda Gagal dibuat.", "error");
         });
     },
   },
