@@ -1,4 +1,3 @@
-import id from 'vuetify/es5/locale/id';
 import api from '../../common/api';
 
 export default {
