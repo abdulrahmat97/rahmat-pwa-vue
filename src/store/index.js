@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import id from 'vuetify/es5/locale/id'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
@@ -11,7 +10,8 @@ export default new Vuex.Store({
     cart: [],
     bestFoods: [],
     foods: [],
-    foodSearch: []
+    foodSearch: [],
+    orders: []
   },
   getters: {
     getCart: state => {
@@ -25,6 +25,9 @@ export default new Vuex.Store({
     },
     getFoodSearch: state => {
       return state.foodSearch;
+    },
+    getOrders: state => {
+      return state.orders;
     }
   },
   mutations: {
@@ -45,6 +48,15 @@ export default new Vuex.Store({
     },
     SET_CART: (state, payload) => {
       state.cart = payload;
+    },
+    SET_ORDERS: (state, payload) => {
+      state.orders = payload;
+    },
+    ADD_ORDER: (state, payload) => {
+      state.orders.push(payload);
+    },
+    REMOVE_ORDER: (state, payload) => {
+      state.orders.splice(state.orders.indexOf(payload), 1);
     }
   },
   actions: {
@@ -102,14 +114,24 @@ export default new Vuex.Store({
         return Promise.reject(error);
       }
     },
-    removeToCart: async ({commit}, payload) => {
+    removeToCart: async ({ commit }, payload) => {
       try {
         let result = await srvApi.removeCart(payload.id);
-        commit("REMOVE_CART",payload);
+        commit("REMOVE_CART", payload);
         return Promise.resolve(result.data);
       } catch (error) {
         return Promise.reject(error);
       }
     },
+    addToOrder: async ({ commit }, payload) => {
+      try {
+        let result = await srvApi.addOrder(payload);
+        commit("ADD_ORDER", result.data);
+        commit("SET_CART", []);
+        return Promise.resolve(result.data);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
   },
 })

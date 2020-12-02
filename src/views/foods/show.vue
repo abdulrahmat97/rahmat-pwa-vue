@@ -33,7 +33,13 @@
               hint="Seperti: pedas, nasi setengah.."
               persistent-hint
             ></v-text-field>
-            <v-btn color="green darken-1" dark @click="addToCart">
+            <v-btn
+              color="green darken-1"
+              dark
+              @click="addToCart"
+              :loading="loading"
+              :disabled="loading"
+            >
               <v-icon left dark>mdi-cart-outline</v-icon>
               Pesan
             </v-btn>
@@ -58,7 +64,7 @@ export default {
       },
       jumlah_pemesanan: "",
       keterangan: "",
-      snackbar: false,
+      loading: false,
     };
   },
   computed: {
@@ -88,10 +94,18 @@ export default {
         keterangan: this.keterangan,
       };
       // console.log('cart', cart)
+      this.loading = true;
       this.$store
         .dispatch("addToCart", cart)
-        .then((res) => {})
-        .catch((ex) => {});
+        .then((res) => {
+          this.$swal("Sukses", "Berhasil memasukkan ke keranjang", "success");
+          this.loading = false;
+          this.$router.push('/cart')
+        })
+        .catch((ex) => {
+          this.$swal("Gagal", "Gagal memasukkan ke keranjang", "error");
+          this.loading = false;
+        });
     },
   },
 };

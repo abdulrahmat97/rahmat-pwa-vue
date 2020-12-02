@@ -13,7 +13,7 @@
       <v-btn text to="/cart">
         <v-icon left> mdi-cart-outline </v-icon>
         <span class="mr-2">Keranjang</span>
-        <v-chip class="ma-2">{{ getCart.length }}</v-chip>
+        <v-chip class="ma-2">{{ calTotalCart }}</v-chip>
       </v-btn>
     </v-app-bar>
 
@@ -22,6 +22,11 @@
         <router-view />
       </v-container>
     </v-main>
+    <v-footer class="mt-10">
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Abdul Rahmat</strong>
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
@@ -45,6 +50,17 @@ export default {
   },
   computed: {
     ...mapGetters(["getCart"]),
+    calTotalCart() {
+      let total = 0;
+      if (this.getCart.length == 0) {
+        return 0;
+      } else {
+        this.getCart.forEach((item) => {
+          total = total + parseInt(item.jumlah_pemesanan);
+        });
+        return total;
+      }
+    },
   },
 };
 </script>

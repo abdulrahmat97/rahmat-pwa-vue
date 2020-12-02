@@ -22,6 +22,10 @@ const routes = [
   {
     path:'/cart',
     component: () => import('../views/cart/index')
+  },
+  {
+    path:'/ordersuccess',
+    component: () => import('../views/waiting/index')
   }
 ]
 
