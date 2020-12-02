@@ -116,7 +116,7 @@ export default new Vuex.Store({
     },
     removeToCart: async ({ commit }, payload) => {
       try {
-        let result = await srvApi.removeCart(payload.id);
+        let result = await srvApi.deleteCart(payload.id);
         commit("REMOVE_CART", payload);
         return Promise.resolve(result.data);
       } catch (error) {
@@ -131,10 +131,13 @@ export default new Vuex.Store({
         return Promise.reject(error);
       }
     },
-    addToOrder: async ({ commit }, payload) => {
+    addToOrder: async ({ commit, dispatch, state }, payload) => {
       try {
         let result = await srvApi.addOrder(payload);
         commit("ADD_ORDER", result.data);
+        state.cart.forEach(item => {
+          dispatch("removeToCart", item);
+        })
         commit("SET_CART", []);
         return Promise.resolve(result.data);
       } catch (error) {

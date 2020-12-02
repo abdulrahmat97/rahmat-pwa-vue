@@ -204,24 +204,25 @@ export default {
           this.fetchCart();
         });
     },
-    addToOrders() {
-      this.loading2 = true;
-      let order = {
-        nama: this.nama,
-        noMeja: this.noMeja,
-        keranjangs: this.getCart,
-      };
-      this.$store
-        .dispatch("addToOrder", order)
-        .then((res) => {
-          this.loading2 = false;
-          this.$swal("Berhasi!", "Pesanan Anda Telah dibuat.", "success");
-          this.$router.push("/ordersuccess");
-        })
-        .catch((ex) => {
-          this.loading2 = false;
-          this.$swal("Berhasi!", "Pesanan Anda Gagal dibuat.", "error");
-        });
+    async addToOrders() {
+      try {
+        this.loading2 = true;
+        let order = {
+          nama: this.nama,
+          noMeja: this.noMeja,
+          keranjangs: this.getCart,
+        };
+        await this.$store.dispatch("addToOrder", order);
+        // this.getCart.forEach(item => {
+        //   this.$store.dispatch("removeToCart",item)
+        // })
+        this.loading2 = false;
+        this.$swal("Berhasi!", "Pesanan Anda Telah dibuat.", "success");
+        this.$router.push("/ordersuccess");
+      } catch (error) {
+        this.loading2 = false;
+        this.$swal("Berhasi!", "Pesanan Anda Gagal dibuat.", "error");
+      }
     },
   },
 };
