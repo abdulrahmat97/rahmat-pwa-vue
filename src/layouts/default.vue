@@ -3,18 +3,25 @@
     <v-app-bar app color="white" flat>
       <div class="d-flex align-center">Resto Linov</div>
 
-      <div class="d-flex align-center ml-5">
+      <!-- <div class="d-flex align-center ml-5">
         <v-btn text to="/">Home</v-btn>
         <v-btn text to="/foods">Foods</v-btn>
-      </div>
+      </div> -->
+      <v-toolbar-items class="ml-10">
+        <v-btn text to="/">Home</v-btn>
+      </v-toolbar-items>
+      <v-toolbar-items>
+        <v-btn text to="/foods">Foods</v-btn>
+      </v-toolbar-items>
 
       <v-spacer></v-spacer>
-
-      <v-btn text to="/cart" class="mr-5">
-        <v-icon left> mdi-cart-outline </v-icon>
-        <span class="mr-2">Keranjang</span>
-        <v-chip class="ma-2">{{ calTotalCart }}</v-chip>
-      </v-btn>
+      <v-toolbar-items>
+        <v-btn text to="/cart" class="mr-5">
+          <v-icon left> mdi-cart-outline </v-icon>
+          <span class="mr-2">Keranjang</span>
+          <v-chip class="ma-2">{{ calTotalCart }}</v-chip>
+        </v-btn>
+      </v-toolbar-items>
       <v-btn to="/auth/login" v-if="!getLocal" color="primary" dark depressed>
         Login
       </v-btn>
@@ -70,7 +77,7 @@ export default {
   methods: {
     logout() {
       sessionStorage.clear();
-      this.$router.push('/auth/login');
+      this.$router.push("/auth/login");
     },
   },
 };
