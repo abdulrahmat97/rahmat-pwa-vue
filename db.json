@@ -357,6 +357,26 @@
         }
       ],
       "id": 9
+    },
+    {
+      "nama": "rahmat",
+      "noMeja": "02",
+      "keranjangs": [
+        {
+          "products": {
+            "id": 1,
+            "kode": "K-01",
+            "nama": "Sate Ayam",
+            "harga": 16000,
+            "is_ready": true,
+            "gambar": "sate-ayam.jpg"
+          },
+          "jumlah_pemesanan": "2",
+          "keterangan": "pedas",
+          "id": 1
+        }
+      ],
+      "id": 10
     }
   ]
 }

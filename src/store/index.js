@@ -11,7 +11,11 @@ export default new Vuex.Store({
     bestFoods: [],
     foods: [],
     foodSearch: [],
-    orders: []
+    orders: [],
+    user: {
+      nama: "",
+      email: ""
+    }
   },
   getters: {
     getCart: state => {
@@ -28,6 +32,9 @@ export default new Vuex.Store({
     },
     getOrders: state => {
       return state.orders;
+    },
+    getUser: state => {
+      return state.user;
     }
   },
   mutations: {
@@ -57,6 +64,9 @@ export default new Vuex.Store({
     },
     REMOVE_ORDER: (state, payload) => {
       state.orders.splice(state.orders.indexOf(payload), 1);
+    },
+    SET_USER: (state, payload) => {
+      state.user = payload;
     }
   },
   actions: {
@@ -139,6 +149,24 @@ export default new Vuex.Store({
           dispatch("removeToCart", item);
         })
         commit("SET_CART", []);
+        return Promise.resolve(result.data);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    userSignIn: async ({ commit }, payload) => {
+      try {
+        let result = await srvApi.userSignIn(payload);
+        commit("SET_USER",result.data);
+        return Promise.resolve(result.data);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    userRegister: async ({ commit }, payload) => {
+      try {
+        let result = await srvApi.userRegister(payload);
+        commit("SET_USER",result.data);
         return Promise.resolve(result.data);
       } catch (error) {
         return Promise.reject(error);
