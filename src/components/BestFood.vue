@@ -6,7 +6,7 @@
         ><v-icon left dark> mdi-eye </v-icon>Lihat Semua</v-btn
       >
     </div>
-    <v-row>
+    <v-row justify="start">
       <v-col lg="4" md="6" sm="12" v-for="item in getBestFood" :key="item.id">
         <template v-if="loading == false">
           <CardFood :data="item" />
