@@ -154,20 +154,43 @@ export default new Vuex.Store({
         return Promise.reject(error);
       }
     },
-    userSignIn: async ({ commit }, payload) => {
+    userSignIn: async ({ commit, dispatch }, payload) => {
       try {
         let result = await srvApi.userSignIn(payload);
-        commit("SET_USER",result.data);
+        let auth = await dispatch("getUserData", payload.email);
+        let user = {
+          ...result.data,
+          email: auth.email,
+          nama: auth.nama,
+          id: auth.id
+        }
+        commit("SET_USER", user);
         return Promise.resolve(result.data);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    userRegister: async ({ commit }, payload) => {
+    userRegister: async ({ commit,dispatch }, payload) => {
       try {
         let result = await srvApi.userRegister(payload);
-        commit("SET_USER",result.data);
+        let auth = await dispatch("getUserData", payload.email);
+        let user = {
+          ...result.data,
+          email: auth.email,
+          nama: auth.nama,
+          id: auth.id
+        }
+        commit("SET_USER", user);
         return Promise.resolve(result.data);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    getUserData: async ({ commit }, payload) => {
+      try {
+        let result = await srvApi.getUserData(payload);
+        // console.log('result auth', result.data[0]);
+        return Promise.resolve(result.data[0]);
       } catch (error) {
         return Promise.reject(error);
       }

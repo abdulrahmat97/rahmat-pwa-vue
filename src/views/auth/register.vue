@@ -10,7 +10,7 @@
           <v-card-text>
             <ValidationObserver v-slot="{ handleSubmit }">
               <v-form @submit.prevent="handleSubmit(submit)">
-                <!-- <ValidationProvider
+                <ValidationProvider
                   name="Nama"
                   :rules="{ required: true }"
                   v-slot="{ errors }"
@@ -23,7 +23,7 @@
                     type="text"
                     :error-messages="errors[0]"
                   />
-                </ValidationProvider> -->
+                </ValidationProvider>
                 <ValidationProvider
                   name="Email"
                   :rules="{ required: true, email: true }"
@@ -84,7 +84,7 @@ export default {
       try {
         let res = await this.$store.dispatch("userRegister", this.registerForm);
         console.log("res", res);
-        sessionStorage.setItem("user",res.accessToken);
+        sessionStorage.setItem("user", res.accessToken);
         this.$router.push("/foods");
       } catch (error) {
         console.log("error", error);

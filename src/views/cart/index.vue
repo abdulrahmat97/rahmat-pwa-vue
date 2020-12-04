@@ -141,9 +141,10 @@ export default {
   },
   created() {
     this.fetchCart();
+    this.nama= this.getUser.nama
   },
   computed: {
-    ...mapGetters(["getCart"]),
+    ...mapGetters(["getCart","getUser"]),
     calTotal() {
       let total = 0;
       if (this.getCart.length == 0) {

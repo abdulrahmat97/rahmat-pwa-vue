@@ -29,6 +29,13 @@
       <v-btn to="/auth/login" v-if="!getLocal" color="primary" dark depressed>
         Login
       </v-btn>
+      <template v-if="getLocal">
+        <span class="ma-5"
+          >Welcome,
+          <span class="font-weight-bold">{{ getUser.nama }}</span></span
+        >
+      </template>
+      <!-- v-if="getLocal" -->
       <v-btn @click="logout" v-if="getLocal" color="error" dark depressed>
         Logout
       </v-btn>
@@ -36,9 +43,7 @@
 
     <v-navigation-drawer v-model="drawer" temporary app class="rounded-br-xl">
       <v-list nav dense>
-        <v-list-item-group
-          active-class="deep-green--text text--accent-4"
-        >
+        <v-list-item-group active-class="deep-green--text text--accent-4">
           <v-list-item to="/">
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
