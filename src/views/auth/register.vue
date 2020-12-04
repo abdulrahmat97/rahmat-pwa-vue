@@ -88,6 +88,7 @@ export default {
         this.$router.push("/foods");
       } catch (error) {
         console.log("error", error);
+        this.$swal("Error", `${error.response.data}`, "error");
       } finally {
         this.loading = false;
       }

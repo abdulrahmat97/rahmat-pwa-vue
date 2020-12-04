@@ -183,6 +183,7 @@ export default new Vuex.Store({
         commit("SET_USER", user);
         return Promise.resolve(result.data);
       } catch (error) {
+        // console.log('error store', error.response)
         return Promise.reject(error);
       }
     },

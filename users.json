@@ -11,6 +11,12 @@
       "password": "$2a$10$q5uDBZHsk6EuoWopKuMJbuBZk1M22qKbYIB6QgQ/W7mHZ/3wWJ6XS",
       "nama": "Wais",
       "id": 2
+    },
+    {
+      "email": "hay@mail.com",
+      "password": "$2a$10$DvIcya1YtvazoI1G7mF4E.6jl9SyjbP5bWlGBIjZmsRD3RB4ofhIq",
+      "nama": "hay",
+      "id": 3
     }
   ]
 }
